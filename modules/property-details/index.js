@@ -1,20 +1,22 @@
 /* eslint-disable max-statements */
-import React, { useEffect, useState, createContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/button';
 import EstimateSection from '../../components/estimate-section';
 import MortgageSection from '../../components/mortgage-section';
 import PropertyDetailSection from '../../components/property-detail-section';
+import ValuationSection from '../../components/valuation-section';
 import { AccountContext } from '../../context';
 import { Inset } from './style';
 
-const Detail = ({}) => {
+const onClickHandler = () => alert('You have navigated to the edit account page');
+
+const Detail = () => {
   const [account, setAccount] = useState();
 
   useEffect(() => {
     const fetchAccount = async () => {
       const response = await fetch('/api/account');
       const accountData = await response.json();
-      console.log(accountData);
       setAccount(accountData);
     };
     fetchAccount();
@@ -22,18 +24,18 @@ const Detail = ({}) => {
 
   return (
     <Inset>
+      {!account && <p>Please wait ...</p>}
       {account && (
-        <AccountContext.Provider value={account}>
-          <EstimateSection />
-          <PropertyDetailSection />
-          <MortgageSection />
-        </AccountContext.Provider>
+        <>
+          <AccountContext.Provider value={account}>
+            <EstimateSection />
+            <PropertyDetailSection />
+            <ValuationSection />
+            <MortgageSection />
+          </AccountContext.Provider>
+          <Button onClick={onClickHandler}>Edit account</Button>
+        </>
       )}
-      <Button
-        // This is a dummy action
-        onClick={() => alert('You have navigated to the edit account page')}>
-        Edit account
-      </Button>
     </Inset>
   );
 };

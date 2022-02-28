@@ -1,13 +1,16 @@
-import { account, addDaysToDate, dateFormatter, numberFormatter } from '../helper';
+import { useContext } from 'react';
+import { AccountContext } from '../context';
+import { addDaysToDate, dateFormatter, numberFormatter } from '../helper';
 import { AccountSection, AccountLabel, AccountHeadline, AccountList, AccountListItem, InfoText } from '../modules/property-details/style';
 
-const {
-  lastUpdate,
-  updateAfterDays,
-  recentValuation: { amount },
-} = account;
-
 const EstimateSection = () => {
+  const {
+    account: {
+      lastUpdate,
+      updateAfterDays,
+      recentValuation: { amount },
+    },
+  } = useContext(AccountContext);
   return (
     <AccountSection>
       <AccountLabel>Estimated Value</AccountLabel>

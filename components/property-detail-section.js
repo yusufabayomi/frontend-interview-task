@@ -1,11 +1,13 @@
-import { account } from '../helper';
-
+import { useContext } from 'react';
 import { AccountSection, AccountLabel, AccountList, AccountListItem, InfoText } from '../modules/property-details/style';
 import RowContainer from './row-container';
-
-const { name, bankName, postcode } = account;
+import { AccountContext } from '../context';
 
 const PropertyDetailSection = () => {
+  const {
+    account: { name, bankName, postcode },
+  } = useContext(AccountContext);
+
   return (
     <AccountSection>
       <AccountLabel>Property details</AccountLabel>
